@@ -10,7 +10,11 @@ const schema = yup.object({
     telephone: yup.string()
         .required("Telephone is a required field!")
         .matches(/^\d{10}$/, "Phone number must be exactly 10 digits! ex. 9785487525"),
-    guests: yup.number().min(1, "There must be at least 1 guest!").required("Please specify number of guests per table!"),
+    guests: yup
+        .number()
+        .typeError("Please specify number of guests per table!") // Add this to handle empty or invalid input
+        .min(1, "There must be at least 1 guest!")
+        .required("Please specify number of guests per table!"),
     date: yup.string().required("Please select date and time!"),
 });
 
@@ -40,17 +44,17 @@ function Form() {
                     <fieldset>
                         <div className="field">
                             <label htmlFor="name">Full Name</label>
-                            <input type="text" placeholder="John Doe" name="name" {...register("name")} />
+                            <input id="name" type="text" placeholder="John Doe" name="name" {...register("name")} />
                             <span className="error-message">{errors.name?.message}</span>
                         </div>
                         <div className="field">
                             <label htmlFor="email">Email</label>
-                            <input type="text" placeholder="text@email.com" name="email" {...register("email")} />
+                            <input id="email" type="text" placeholder="text@email.com" name="email" {...register("email")} />
                             <span className="error-message">{errors.email?.message}</span>
                         </div>
                         <div className="field">
                             <label htmlFor="telephone">Telephone</label>
-                            <input type="tel" placeholder="9785487525" name="telephone" {...register("telephone")} />
+                            <input id="telephone" type="tel" placeholder="9785487525" name="telephone" {...register("telephone")} />
                             <span className="error-message">{errors.telephone?.message}</span>
                         </div>
                         <div className="field occasion">
@@ -66,12 +70,12 @@ function Form() {
                         </div>
                         <div className="field guest">
                             <label htmlFor="guests">Guests</label>
-                            <input type="number" placeholder="2" name="guests" {...register("guests")} />
+                            <input id="guests" type="number" placeholder="2" name="guests" {...register("guests")} />
                             <span className="error-message">{errors.guests?.message}</span>
                         </div>
                         <div className="field">
                             <label htmlFor="date">Date & Time</label>
-                            <input type="datetime-local" name="date" {...register("date")} />
+                            <input id="date" type="datetime-local" name="date" {...register("date")} />
                             <span className="error-message">{errors.date?.message}</span>
                         </div>
                         <button className="reserve-btn" type="submit">Reserve</button>
