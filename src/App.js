@@ -1,14 +1,17 @@
-import './App.css';
-import Header from './Header';
-import Main from './Main';
-import Footer from './Footer';
+import React from "react";
+import Home from "./routes/Home";
+import Reservations from "./routes/Reservations";
+
+import {Route, Routes} from "react-router-dom";
+
 function App() {
   return (
     <>
-    <Header />
-    <Main />
-    <Footer />
-</>
+      <Routes>
+        <Route path = "/" element = {<Home />}/>
+        <Route path = "/reservations" element = {<Reservations />}/>
+      </Routes>
+    </>
   );
 }
 
